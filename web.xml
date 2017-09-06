@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+    id="WebApp_ID" version="2.5" >
+
+    <display-name>PayVault API</display-name>
+
+    <!-- ===== Filter ============================================ -->
+    <filter>
+      <filter-name>characterEncodingFilter</filter-name>
+      <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+      <init-param>
+        <param-name>encoding</param-name>
+        <param-value>UTF-8</param-value>
+      </init-param>
+    </filter>
+    <filter-mapping>
+      <filter-name>characterEncodingFilter</filter-name>
+      <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+      <filter-name>CORS</filter-name>
+      <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+      <init-param>
+        <!-- The appropriate file is copied from environment/webapp/WEB-INF/config to the folder below during build -->
+        <param-name>cors.configurationFile</param-name>
+        <param-value>WEB-INF/config/corsFilter.properties</param-value>
+      </init-param>
+    </filter>
+    <filter-mapping>
+      <filter-name>CORS</filter-name>
+      <url-pattern>/pv/Card/V1/Add</url-pattern>
+    </filter-mapping>
+
+    <!-- ===== Servlet Mapping ============================================ -->
+    <servlet>
+      <servlet-name>spring-dispatcher</servlet-name>
+      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+      <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>spring-dispatcher</servlet-name>
+      <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+</web-app>
